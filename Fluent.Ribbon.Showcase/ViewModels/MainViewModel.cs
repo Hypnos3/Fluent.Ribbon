@@ -146,9 +146,19 @@
             }
         }
 
-        private string[] GenerateStrings(int count)
+        private string[] GenerateStrings(int count, int length = 4)
         {
-            return Enumerable.Repeat("Test", count).ToArray();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			var rand = new Random();
+
+			List<string> lst = new List<string>();
+			for (int i = 0; i < count; i++)
+			{
+				var text = new string(Enumerable.Repeat(chars, length)
+								.Select(s => s[rand.Next(s.Length)]).ToArray());
+				lst.Add("Test_" + text);
+			}
+			return lst.ToArray(); //Enumerable.Repeat("Test", count).ToArray();
         }
 
         public ICommand PreviewCommand { get; private set; }
